@@ -1,0 +1,6 @@
+  spring:
+  application:
+    name: cloud-consumer-order
+
+  server:
+    port: 80
