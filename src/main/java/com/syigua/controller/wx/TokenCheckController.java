@@ -20,17 +20,16 @@ public class TokenCheckController {
     private static final String TOKEN = "907e8b5b4888e320c9e2c60c3b4c8c00";
 
     @RequestMapping("/checkToken")
-    public Boolean checkToken(TokenCheckParams tokenCheckParams) {
+    public String checkToken(TokenCheckParams tokenCheckParams) {
         String[] tmpArr = {TOKEN, tokenCheckParams.getTimestamp(), tokenCheckParams.getNonce()};
         Arrays.sort(tmpArr);
         String tmpStr = implode(tmpArr);
         tmpStr = sha1(tmpStr);
         if (tmpStr.equals(tokenCheckParams.getSignature())) {
-            return true;
+            return tokenCheckParams.getEchostr();
         } else {
-            return false;
+            return "";
         }
-
     }
 
     private String implode(String[] arr) {
