@@ -1,8 +1,7 @@
 package com.syigua.controller.wx;
 
 import com.syigua.params.wx.TokenCheckParams;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -19,7 +18,7 @@ public class TokenCheckController {
 
     private static final String TOKEN = "907e8b5b4888e320c9e2c60c3b4c8c00";
 
-    @RequestMapping("/checkToken")
+    @GetMapping("/checkToken")
     public String checkToken(TokenCheckParams tokenCheckParams) {
         String[] tmpArr = {TOKEN, tokenCheckParams.getTimestamp(), tokenCheckParams.getNonce()};
         Arrays.sort(tmpArr);
@@ -30,6 +29,15 @@ public class TokenCheckController {
         } else {
             return "";
         }
+    }
+
+
+    @PostMapping("/checkToken")
+    public String handleMessage(@RequestBody String requestBody) {
+        // 处理接收到的消息
+        System.out.println(requestBody);
+        // ...
+        return "接收到消息";
     }
 
     private String implode(String[] arr) {
