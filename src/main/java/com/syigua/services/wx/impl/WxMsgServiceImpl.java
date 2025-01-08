@@ -48,8 +48,8 @@ public class WxMsgServiceImpl implements WxMsgService {
         // 拼接微信回复参数
         response.setContent(resContent);
         response.setMsgType(wxMsgPO.getMsgType());
-        response.setFromUserName(wxMsgPO.getFromUserName());
-        response.setToUserName(wxMsgPO.getToUserName());
+        response.setFromUserName(wxMsgPO.getToUserName());
+        response.setToUserName(wxMsgPO.getFromUserName());
         response.setCreateTime(System.currentTimeMillis() / 1000);
         return response;
     }
