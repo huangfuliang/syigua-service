@@ -1,6 +1,9 @@
 package com.syigua.controller.wx;
 
 import com.syigua.params.wx.TokenCheckParams;
+import com.syigua.services.wx.WxMsgService;
+import com.syigua.vo.WxMsgResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.MessageDigest;
@@ -15,6 +18,9 @@ import java.util.Arrays;
 @RestController
 @RequestMapping("/wx")
 public class TokenCheckController {
+
+    @Autowired
+    private WxMsgService wxMsgService;
 
     private static final String TOKEN = "907e8b5b4888e320c9e2c60c3b4c8c00";
 
@@ -35,9 +41,8 @@ public class TokenCheckController {
     @PostMapping("/checkToken")
     public String handleMessage(@RequestBody String requestBody) {
         // 处理接收到的消息
-        System.out.println(requestBody);
-        // ...
-        return "接收到消息";
+        WxMsgResponse response = wxMsgService.handleMsg(requestBody);
+        return response.getResponseXml();
     }
 
     private String implode(String[] arr) {

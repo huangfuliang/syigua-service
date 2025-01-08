@@ -1,6 +1,28 @@
-  spring:
+spring:
   application:
     name: cloud-consumer-order
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://rm-bp123u74a0l8jw9m39o.mysql.rds.aliyuncs.com:3306/syisuan
+    username: syisuan
+    password: Huang1qaz!
 
-  server:
+server:
     port: 80
+
+models:
+    qwen:
+        url: https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions
+        method: POST
+        api_key: sk-6e396126d6e841b3a5e6d7274271f721
+        model: qwen-turbo
+mybatis:
+  mapper-locations: classpath:com.syigua.mapper/*.xml
+
+langchain4j:
+  openai:
+    apiKey: sk-6e396126d6e841b3a5e6d7274271f721
+    modelName: qwen-turbo
+    temperature: 0.5
+    maxTokens: 2000
+    topP: 1.0
