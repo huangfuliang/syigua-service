@@ -3,6 +3,7 @@ package com.syigua.services.wx.impl;
 import com.syigua.dto.ModelResponse;
 import com.syigua.mapper.WxMsgMapper;
 import com.syigua.po.WxMsgPO;
+import com.syigua.services.gylq.SygGylqService;
 import com.syigua.services.models.QwenModelsService;
 import com.syigua.services.wx.WxMsgService;
 import com.syigua.services.xmx.XmxService;
@@ -12,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 @Service
 @Slf4j
@@ -22,6 +24,9 @@ public class WxMsgServiceImpl implements WxMsgService {
 
     @Autowired
     private XmxService xmxService;
+
+    @Autowired
+    private SygGylqService sygGylqService;
 
 
 
@@ -43,10 +48,18 @@ public class WxMsgServiceImpl implements WxMsgService {
         WxMsgResponse response = new WxMsgResponse();
         // 查询内容
         String reqContent = wxMsgPO.getContent();
-        String resContent  = xmxService.getYs(reqContent);
-
+        log.info(reqContent);
+        String resContent= "";
+        if (reqContent.equals("求签")) {
+            resContent = sygGylqService.getQwByTjlx(null);
+        } else {
+            resContent  = xmxService.getYs(reqContent);
+        }
         // 拼接微信回复参数
         response.setContent(resContent);
+
+
+
         response.setMsgType(wxMsgPO.getMsgType());
         response.setFromUserName(wxMsgPO.getToUserName());
         response.setToUserName(wxMsgPO.getFromUserName());

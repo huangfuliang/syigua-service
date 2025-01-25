@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.syigua.mapper.SygGylqQwMapper">
+
+    <select id="getQwByTjlx" resultType="com.syigua.po.SygGylqQw" parameterType="java.lang.String">
+        select id, qw,xj,gw, tjlx from syg_gylq_qw ORDER BY RAND() limit 1
+   </select>
+
+
+
+
+</mapper>
