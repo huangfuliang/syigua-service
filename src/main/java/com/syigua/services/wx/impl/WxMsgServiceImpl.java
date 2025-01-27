@@ -1,5 +1,6 @@
 package com.syigua.services.wx.impl;
 
+import com.syigua.constant.ModelEnum;
 import com.syigua.dto.ModelResponse;
 import com.syigua.mapper.SygWxEtxContentMapper;
 import com.syigua.mapper.WxMsgMapper;
@@ -47,6 +48,7 @@ public class WxMsgServiceImpl implements WxMsgService {
         wxMsgPO.setToUserName(xmlParser.getValueByKey("ToUserName"));
         wxMsgPO.setFromUserName(xmlParser.getValueByKey("FromUserName"));
         wxMsgPO.setCreateTime(xmlParser.getValueByKey("CreateTime"));
+        wxMsgPO.setRole(ModelEnum.USER.getValue());
         // 保存日志数据
         addMsg(wxMsgPO);
 
@@ -55,7 +57,9 @@ public class WxMsgServiceImpl implements WxMsgService {
         String reqContent = wxMsgPO.getContent();
         log.info(reqContent);
         String resContent= "";
-        if (reqContent.equals("求签")) {
+        if (reqContent.contains("解签")) {
+            resContent = sygGylqService.getJqByQw(reqContent, wxMsgPO.getFromUserName());
+        } else if (reqContent.contains("签")) {
             resContent = sygGylqService.getQwByTjlx(null);
         } else {
             resContent  = xmxService.getYs(reqContent);
@@ -66,12 +70,14 @@ public class WxMsgServiceImpl implements WxMsgService {
         }
         // 拼接微信回复参数
         response.setContent(resContent);
-
-
         response.setMsgType(wxMsgPO.getMsgType());
         response.setFromUserName(wxMsgPO.getToUserName());
         response.setToUserName(wxMsgPO.getFromUserName());
         response.setCreateTime(System.currentTimeMillis() / 1000);
+
+        wxMsgPO.setRole(ModelEnum.ASSISTANT.getValue());
+        wxMsgPO.setContent(resContent);
+        addMsg(wxMsgPO);
         return response;
     }
 

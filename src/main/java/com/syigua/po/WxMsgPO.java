@@ -17,5 +17,10 @@ public class WxMsgPO {
 
     private String msgId;
 
+    /**
+     * ModelEnums
+     */
+    private String role;
+
 
 }

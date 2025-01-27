@@ -9,7 +9,8 @@
     msg_type,
     from_user_name,
     to_user_name,
-    create_time
+    create_time,
+    role
     )
     VALUES (
     #{msgId},
@@ -17,7 +18,16 @@
     #{msgType},
     #{fromUserName},
     #{toUserName},
-    #{createTime}
+    #{createTime},
+    #{role}
     )
     </insert>
+
+
+    <select id="getContentByUserName" resultType="com.syigua.po.WxMsgPO" parameterType="java.lang.String">
+        select content, role from wx_msg where from_user_name = #{userName}
+                                or to_user_name =  #{userName}
+        order by create_date_log desc limit 5;
+    </select>
+
 </mapper>
