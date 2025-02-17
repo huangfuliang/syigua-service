@@ -21,4 +21,11 @@ class SygGylqServiceImplTest {
     }
 
 
+    @Test
+    void getJqByQw() {
+
+        String str = sygGylqService.getJqByQw("解签", "oPrff6xC96XrAT76reg87nt_Q7pw");
+        System.out.println(str);
+
+    }
 }

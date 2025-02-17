@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>算命页面</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 300px;
+            text-align: center;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            box-sizing: border-box; /* 确保内边距和边框包含在元素的总宽度内 */
+        }
+        .bubble {
+            position: relative;
+            display: inline-block;
+        }
+        .bubble::after {
+            content: attr(data-count);
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: red;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <input type="text" id="name" placeholder="姓名">
+    <select id="gender">
+        <option value="male">男</option>
+        <option value="female">女</option>
+    </select>
+    <input type="date" id="birthdate" placeholder="生辰">
+    <select id="calendarType">
+        <option value="gregorian">公历</option>
+        <option value="lunar">农历</option>
+    </select>
+    <select id="query">
+        <option value="career">事业</option>
+        <option value="love">爱情</option>
+        <option value="health">健康</option>
+    </select>
+    <button id="checkFortune" onclick="checkFortune()">查询查看运势</button>
+    <div class="bubble" data-count="0">
+        <button id="historyReport" onclick="viewHistory()">历史报告</button>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    function checkFortune() {
+        // 获取用户输入的值
+        const name = document.getElementById('name').value;
+        const gender = document.getElementById('gender').value;
+        const birthdate = document.getElementById('birthdate').value;
+        const calendarType = document.getElementById('calendarType').value;
+        const query = document.getElementById('query').value;
+
+        // 调用后台接口
+        axios.post('/api/checkFortune', {
+            name,
+            gender,
+            birthdate,
+            calendarType,
+            query
+        })
+            .then(response => {
+                console.log('运势查询成功:', response.data);
+                // 这里可以根据接口返回的数据进行相应的处理，比如显示运势结果等
+            })
+            .catch(error => {
+                console.error('运势查询失败:', error);
+            })
+            .finally(() => {
+                // 无论请求成功还是失败，都将按钮设置为可用状态
+                document.getElementById('checkFortune').disabled = false;
+            });
+
+        // 禁用按钮，防止重复提交
+        document.getElementById('checkFortune').disabled = true;
+    }
+
+    function viewHistory() {
+        // 这里应该打开历史报告列表页面
+    }
+
+    // 这里应该有一个函数来更新气泡中的数字，通过调用后台接口获取历史报告的数量
+</script>
+
+</body>
+</html>

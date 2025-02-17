@@ -51,4 +51,5 @@ public class WxMsgServiceImplTest {
         System.out.println(msgResponse.getResponseXml());
     }
 
+
 }

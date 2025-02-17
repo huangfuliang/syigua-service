@@ -72,6 +72,7 @@ public class BzmlAigcServiceImpl implements BzmlAigcService {
 
     @Override
     public BzmlVO getBzml(BzmlParams bzmlParams) {
+        /**
         BzmlVO bzmlVO = new BzmlVO();
         ParamsModel paramsModel = new ParamsModel();
         String rl =null;
@@ -107,6 +108,8 @@ public class BzmlAigcServiceImpl implements BzmlAigcService {
         bzmlVO.setWlyn(wlyn);
 
         return bzmlVO;
+         **/
+        return null;
     }
 
     public String getBz(Map<String, String> bzmlParams, Integer promptCode) {
@@ -126,7 +129,9 @@ public class BzmlAigcServiceImpl implements BzmlAigcService {
     }
 
     private String wrapStr(BzmlParams bzmlParams) {
-        return bzmlParams.getBirthYear() + "年" + bzmlParams.getBirthMonth()+"月" + bzmlParams.getBirthDay()+"日" + bzmlParams.getBirthHour()+"时";
+        //return bzmlParams.getBirthYear() + "年" + bzmlParams.getBirthMonth()+"月" + bzmlParams.getBirthDay()+"日" + bzmlParams.getBirthHour()+"时";
+
+        return "";
     }
 
 

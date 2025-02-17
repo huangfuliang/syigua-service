@@ -8,13 +8,11 @@ import org.springframework.stereotype.Controller;
 
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.Resource;
+import java.util.UUID;
 
 @Controller
-public class TestReultController {
+public class ViewController {
 
     @Autowired
     private BzmlAigcServiceImpl bzmlAigcService;
@@ -37,6 +35,13 @@ public class TestReultController {
         model.addAttribute("wlyn", bzml.getWlyn());
         System.out.println(System.currentTimeMillis() - start);
         return "reslut";
+    }
+
+    @GetMapping("/ysbzml")
+    public String ysbzml(){
+        UUID uuid = UUID.randomUUID();
+        String uuidStr = uuid.toString();
+        return "ysbzml?uid=" + uuidStr;
     }
 
 }

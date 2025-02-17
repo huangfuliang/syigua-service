@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.syigua.mapper.BzmlBgMapper">
+
+    <insert id="insert" parameterType="com.syigua.po.BzmlBg">
+        insert into bzml_bg (
+        uid,
+        file_Name)
+        values (
+        #{uid},
+        #{fileName}
+        )
+    </insert>
+
+    <update id="update" parameterType="com.syigua.po.BzmlBg">
+        update bzml_bg
+        set
+        file_url = #{fileUrl},
+        update_time = now()
+        where
+        uid = #{uid}
+    </update>
+
+    <select id="getBgByUid" resultType="com.syigua.po.BzmlBg" parameterType="java.lang.String">
+        select ID, UID, FILE_NAME, FILE_URL, create_time, uodate_time from bzml_bg where uid = #{uid}
+    </select>
+
+</mapper>

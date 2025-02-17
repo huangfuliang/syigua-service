@@ -5,18 +5,19 @@ import lombok.Data;
 @Data
 public class BzmlParams {
 
-    private String gender; // 性别
+    private String name;
 
-    private String birthYear; // 出生年
+    private String gender;
 
-    private String birthMonth; // 出生月
+    private String calendarType;
 
-    private String birthDay; // 出生日
+    private String birthdate;
 
-    private String birthHour; // 出生时
+    private String query;
 
-    /**
-     * 1 阳历 2 农历
-     */
-    private Integer code;
+
+    public String toString() {
+        return "姓名:" + name + "；性别:" + gender + "；生辰:" + birthdate + "；查询内容" + query;
+    }
+
 }

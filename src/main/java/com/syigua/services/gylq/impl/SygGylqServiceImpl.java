@@ -1,6 +1,8 @@
 package com.syigua.services.gylq.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.syigua.dto.ChatHistoryParams;
+import com.syigua.dto.ModelResponse;
 import com.syigua.mapper.SygGylqQwMapper;
 import com.syigua.mapper.WxMsgMapper;
 import com.syigua.po.SygGylqQw;
@@ -32,8 +34,10 @@ public class SygGylqServiceImpl implements SygGylqService {
     @Override
     public String getJqByQw(String contentQw, String userName) {
         String prompt = "请根据历史的问题和签文，进行解签。" + contentQw;
-        qwenModelsService.getResByHistory(prompt, userName);
-        return null;
+        ModelResponse modelResponse = qwenModelsService.getResByHistory(prompt, userName);
+        JSONObject choices = JSONObject.parseObject(modelResponse.getResponse());
+        JSONObject choice = choices.getJSONArray("choices").getJSONObject(0);
+        return choice.getJSONObject("message").getString("content");
     }
 
 }

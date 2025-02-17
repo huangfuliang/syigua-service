@@ -6,6 +6,10 @@ spring:
     url: jdbc:mysql://rm-bp123u74a0l8jw9m39o.mysql.rds.aliyuncs.com:3306/syisuan
     username: syisuan
     password: Huang1qaz!
+  profiles:
+    active: dev
+  logging:
+    config: classpath:logback-${spring.profiles.active}.xml
 
 server:
     port: 80
@@ -19,10 +23,16 @@ models:
 mybatis:
   mapper-locations: classpath:com.syigua.mapper/*.xml
 
-langchain4j:
-  openai:
-    apiKey: sk-6e396126d6e841b3a5e6d7274271f721
-    modelName: qwen-turbo
-    temperature: 0.5
-    maxTokens: 2000
-    topP: 1.0
+logging:
+  level:
+    root: info  # 输出所有 info 及以上级别的日志，若要输出所有日志可设为 debug
+  file:
+    path: /Users/huangfuliang/IdeaProjects/syigua-service/src/main/resources/log
+    name: ${logging.file.path}/syisuan.log
+  pattern:
+    file: '%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n'
+  logback:
+    rollingpolicy:
+      max-file-size: 10MB  # 单个日志文件最大大小
+      file-name-pattern: ${logging.file.path}/syisuan.%d{yyyy-MM-dd}.log  # 按天滚动的日志文件名模式
+      max-history: 30  # 保留的历史日志文件数量

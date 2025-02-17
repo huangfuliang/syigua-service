@@ -16,4 +16,9 @@ public class QuestionController {
         return null;
     }
 
+    public BaseResponse<String> questionHistory(String question) {
+        return null;
+    }
+
+
 }

@@ -150,10 +150,12 @@ public class QwenModelServiceImpl implements QwenModelsService {
     private Queue<ChatHistoryParams> convertToQueue(List<WxMsgPO> history) {
         Queue<ChatHistoryParams> queue = new LinkedList<>();
         for (WxMsgPO msg : history) {
-            ChatHistoryParams params = new ChatHistoryParams();
-            params.setRole(msg.getRole());
-            params.setContent(msg.getContent());
-            queue.add(params);
+            if (Objects.nonNull(msg.getRole()) && Objects.nonNull(msg.getContent())) {
+                ChatHistoryParams params = new ChatHistoryParams();
+                params.setRole(msg.getRole());
+                params.setContent(msg.getContent());
+                queue.add(params);
+            }
         }
         return queue;
     }
