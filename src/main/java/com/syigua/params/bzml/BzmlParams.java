@@ -5,6 +5,8 @@ import lombok.Data;
 @Data
 public class BzmlParams {
 
+    private String uid;
+
     private String name;
 
     private String gender;

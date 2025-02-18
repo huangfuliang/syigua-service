@@ -27,8 +27,8 @@ public class BzmlGenerateServiceImpl implements BzmlGenerateService {
     /**
      * 大模型调用地址
      */
-    private String URL = "http://www.laibuyiguaba.cn:5001/bzml/generate";
-    // private String URL = "http://localhost:5001/bzml/generate";
+    // private String URL = "http://www.laibuyiguaba.cn:5001/bzml/generate";
+    private String URL = "http://127.0.0.1:5001/bzml/generate";
 
     @Override
     public boolean generateBzml(BzmlParams bzmlParams, String uid) {

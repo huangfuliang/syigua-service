@@ -45,6 +45,7 @@
 <body>
 
 <div class="container">
+    <input type="hidden" id="uid" th:value="${uid}" />
     <input type="text" id="name" placeholder="姓名">
     <select id="gender">
         <option value="male">男</option>
@@ -70,6 +71,7 @@
 <script>
     function checkFortune() {
         // 获取用户输入的值
+        const uid = document.getElementById('uid').value;
         const name = document.getElementById('name').value;
         const gender = document.getElementById('gender').value;
         const birthdate = document.getElementById('birthdate').value;

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.servlet.http.HttpSession;
 import java.util.UUID;
 
 @Controller
@@ -38,10 +39,12 @@ public class ViewController {
     }
 
     @GetMapping("/ysbzml")
-    public String ysbzml(){
+    public String ysbzml(Model model, HttpSession session){
         UUID uuid = UUID.randomUUID();
         String uuidStr = uuid.toString();
-        return "ysbzml?uid=" + uuidStr;
+        model.addAttribute("uid", uuidStr);
+        session.setAttribute("uid", uuidStr);
+        return "ysbzml";
     }
 
 }
