@@ -5,32 +5,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>算命页面</title>
+  <!-- 引入 WeUI 样式 -->
+  <link rel="stylesheet" href="https://res.wx.qq.com/t/wx_fed/weui-source/res/2.5.16/weui.min.css" />
   <style>
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-      font-family: Arial, sans-serif;
-    }
-
-    .container {
-      width: 300px;
-      text-align: center;
-    }
-
-    input,
-    select,
-    button {
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-      border-radius: 5px;
-      border: 1px solid #ddd;
-      box-sizing: border-box;
-    }
-
+    /* 保留气泡样式 */
     .bubble {
       position: relative;
       display: inline-block;
@@ -47,72 +25,149 @@
       padding: 2px 6px;
       font-size: 12px;
     }
+
+
   </style>
-  <link rel="stylesheet" href="https://res.wx.qq.com/t/wx_fed/weui-source/res/2.5.16/weui.min.css" />
-  <!-- 修正 script 标签闭合问题 -->
   <script type="text/javascript" src="https://res.wx.qq.com/t/wx_fed/weui.js/res/1.2.21/weui.min.js"></script>
   <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
 </head>
 
 <body>
-<div class="container">
+<!-- 使用 WeUI 的页面容器 -->
+<div class="weui-cells weui-cells_form">
   <input type="hidden" id="uid" th:value="${uid}" />
-  <input type="text" id="name" placeholder="姓名">
-  <select id="gender">
-    <option value="male">男</option>
-    <option value="female">女</option>
-  </select>
-  <input type="date" id="birthdate" placeholder="生辰">
-  <select id="calendarType">
-    <option value="gregorian">公历</option>
-    <option value="lunar">农历</option>
-  </select>
-  <select id="query">
-    <option value="career">事业</option>
-    <option value="love">爱情</option>
-    <option value="health">健康</option>
-  </select>
-  <button id="checkFortune" onclick="checkFortune()">查询查看运势</button>
-  <div class="bubble" data-count="0">
-    <button id="historyReport" onclick="viewHistory()">历史报告</button>
+  <!-- 使用 WeUI 的输入框 -->
+  <div class="weui-cell">
+    <div class="weui-cell__hd"><label class="weui-label">姓名</label></div>
+    <div class="weui-cell__bd">
+      <input class="weui-input" type="text" id="name" placeholder="姓名">
+    </div>
   </div>
-  <div class="bubble" data-count="0">
-    <button id="testlocalStorage" onclick="testLocalStorage()">localStorage测试</button>
+  <!-- 使用 WeUI 的选择器 -->
+  <div class="weui-cell weui-cell_select">
+    <div class="weui-cell__hd"><label class="weui-label">性别</label></div>
+    <div class="weui-cell__bd">
+      <select class="weui-select" id="gender">
+        <option value="male">男</option>
+        <option value="female">女</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="weui-cell weui-cell_select">
+    <div class="weui-cell__hd"><label class="weui-label">历法</label></div>
+    <div class="weui-cell__bd">
+      <select class="weui-select" id="calendarType">
+        <option value="gregorian">公历</option>
+        <option value="lunar">农历</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="weui-cell">
+    <div class="weui-cell__hd"><label class="weui-label">生辰</label></div>
+    <div class="weui-cell__bd">
+      <input class="weui-input" type="date" id="birthdate" placeholder="生辰">
+    </div>
+  </div>
+
+  <div class="weui-cell weui-cell_select">
+    <div class="weui-cell__hd"><label class="weui-label">出生时辰</label></div>
+    <div class="weui-cell__bd">
+      <select class="weui-select" id="datehour">
+        <option value="1">1点～2点</option>
+        <option value="2">2点～3点</option>
+        <option value="3">3点～4点</option>
+        <option value="4">4点～5点</option>
+        <option value="5">5点～6点</option>
+        <option value="6">6点～7点</option>
+        <option value="7">7点～8点</option>
+        <option value="8">8点～9点</option>
+        <option value="9">9点～10点</option>
+        <option value="10">10点～11点</option>
+        <option value="11">11点～12点</option>
+        <option value="12">12点～13点</option>
+        <option value="13">13点～14点</option>
+        <option value="14">14点～15点</option>
+        <option value="15">15点～16点</option>
+        <option value="16">16点～17点</option>
+        <option value="17">17点～18点</option>
+        <option value="18">18点～19点</option>
+        <option value="19">19点～20点</option>
+        <option value="20">20点～21点</option>
+        <option value="21">21点～22点</option>
+        <option value="22">22点～23点</option>
+        <option value="23">23点～24点</option>
+        <option value="24">24点～1点</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="weui-cell weui-cell_select">
+    <div class="weui-cell__hd"><label class="weui-label">查询类型</label></div>
+    <div class="weui-cell__bd">
+      <select class="weui-select" id="query">
+        <option value="career">事业</option>
+        <option value="love">爱情</option>
+        <option value="health">健康</option>
+      </select>
+    </div>
+  </div>
+  <!-- 使用 WeUI 的按钮 -->
+  <div class="weui-btn-area">
+    <a href="javascript:;" class="weui-btn weui-btn_primary" id="checkFortune" onclick="checkFortune()">查询查看运势</a>
+  </div>
+  <div class="weui-btn-area">
+    <div class="bubble" data-count="0">
+      <a href="javascript:;" class="weui-btn weui-btn_default" id="historyReport" onclick="viewHistory()">历史报告</a>
+    </div>
+  </div>
+  <div class="weui-btn-area">
+    <div class="bubble" data-count="0">
+      <a href="javascript:;" class="weui-btn weui-btn_default" id="testlocalStorage" onclick="testLocalStorage()">localStorage测试</a>
+    </div>
   </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
-  // 创建一个 axios 实例并配置 baseURL
   const instance = axios.create({
-    baseURL: 'http://localhost', // 替换为实际的域名
-    timeout: 10000 // 请求超时时间
+    baseURL: 'http://localhost',
+    timeout: 10000
   });
 
   function checkFortune() {
-    // 获取用户输入的值
     const uid = document.getElementById('uid').value;
     const name = document.getElementById('name').value;
     const gender = document.getElementById('gender').value;
     const birthdate = document.getElementById('birthdate').value;
     const calendarType = document.getElementById('calendarType').value;
+    const datehour = document.getElementById('datehour').value;
     const query = document.getElementById('query').value;
 
-    // 禁用按钮，防止重复提交
-    document.getElementById('checkFortune').disabled = true;
+    document.getElementById('checkFortune').classList.add('weui-btn_disabled');
 
-    // 调用后台接口
+    const targetKey = 'uid';
+    const uuid = crypto.randomUUID();
+    if (!isKeyExistsInLocalStorage(targetKey)) {
+      localStorage.setItem(targetKey, uuid);
+    } else {
+      const uuid = crypto.randomUUID();
+      console.log(uuid);
+      localStorage.setItem(targetKey, uuid);
+    }
+
     instance.post('/ys/generateBzml', {
       uid,
       name,
       gender,
       birthdate,
+      datehour,
       calendarType,
       query
     })
             .then(response => {
               console.log('运势查询成功:', response.data);
-              // 这里可以根据接口返回的数据进行相应的处理，比如显示运势结果等
               weui.alert('运势查询成功');
             })
             .catch(error => {
@@ -120,37 +175,19 @@
               weui.alert('运势查询失败，请稍后再试');
             })
             .finally(() => {
-              // 无论请求成功还是失败，都将按钮设置为可用状态
-              document.getElementById('checkFortune').disabled = false;
+              document.getElementById('checkFortune').classList.remove('weui-btn_disabled');
             });
   }
 
   function viewHistory() {
-    // 这里应该打开历史报告列表页面
-    // 示例：可以使用 window.open 打开新窗口
-    // window.open('/history-report', '_blank');
     weui.alert('暂未实现历史报告查看功能');
-  }
-
-  function testLocalStorage() {
-    const targetKey = 'user_name';
-    if (isKeyExistsInLocalStorage(targetKey)) {
-      weui.alert(`${targetKey} 存在于 localStorage 中`);
-      console.log(`${targetKey} 存在于 localStorage 中`);
-    } else {
-      localStorage.setItem('user_name', '张三');
-      weui.alert(`${targetKey} 不存在于 localStorage 中，已添加`);
-      console.log(`${targetKey} 不存在于 localStorage 中，已添加`);
-    }
   }
 
   function isKeyExistsInLocalStorage(key) {
     return localStorage.getItem(key) !== null;
   }
 
-  // 更新气泡中的数字
   function updateBubbleCount() {
-    // 调用后台接口获取历史报告的数量
     instance.get('/ys/getHistoryReportCount')
             .then(response => {
               const count = response.data.count;
@@ -162,7 +199,6 @@
             });
   }
 
-  // 页面加载完成后更新气泡数量
   window.onload = function () {
     updateBubbleCount();
   };

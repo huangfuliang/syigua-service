@@ -17,9 +17,11 @@ public class BzmlParams {
 
     private String query;
 
+    private String datehour;
+
 
     public String toString() {
-        return "姓名:" + name + "；性别:" + gender + "；生辰:" + birthdate + "；查询内容" + query;
+        return "姓名:" + name + "；性别:" + gender + "；生辰:" + birthdate + datehour + "时" + "；查询内容" + query;
     }
 
 }
