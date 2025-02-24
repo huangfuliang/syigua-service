@@ -7,14 +7,14 @@ spring:
     username: syisuan
     password: Huang1qaz!
   profiles:
-    active: dev
+    active: prod
   logging:
     config: classpath:logback-${spring.profiles.active}.xml
 
 server:
     port: 80
 
-models:
+models
     qwen:
         url: https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions
         method: POST
